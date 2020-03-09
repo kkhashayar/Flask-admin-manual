@@ -1,0 +1,28 @@
+{%extends "customers_items_layout.html"%}
+{%block content%}
+
+<nav class="navbar-fixed-top navbar-expand-lg navbar-light">
+  <div class="navbar-nav navbar-fixed-top">
+    <a class="nav-item nav-link" href="{{ url_for('home') }}"><button class="btn btn-outline-success btn-sm" type="button">HOME</button></a>
+    <a class="nav-item nav-link" href="{{ url_for('customers') }}"><button class="btn btn-outline-success btn-sm" type="button">CUSTOMERS</button></a>
+    <a class="nav-item nav-link" href="{{ url_for('add_new_item') }}"><button class="btn btn-outline-primary btn-sm" type="button">Add new Item</button></a>
+
+
+
+
+  </div>
+</nav>
+
+<div class="jumbotron">
+  <h4>Item results</h4>
+</div>
+<div style="height:520px;width:520  px;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
+  <strong>{% for result in results%}</strong>
+  <ul class="list-group">
+    <li class="list-group-item list-group-item-light"> <a href={{result.item_id}}> <button class="btn btn-sm btn-outline-secondary" type="button">{{result}}</button> </a></li>
+  </ul>
+  {%endfor%}
+</div>
+
+
+{%endblock content%}

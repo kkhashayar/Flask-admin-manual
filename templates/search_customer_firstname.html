@@ -1,0 +1,21 @@
+{%extends "customers_items_layout.html"%}
+{%block content%}
+
+<nav class="navbar-fixed-top navbar-expand-lg navbar-light">
+  <div class="navbar-nav navbar-fixed-top">
+    <a class="nav-item nav-link" href="{{ url_for('home') }}"><button class="btn btn-outline-success btn-sm" type="button">HOME</button></a>
+    <a class="nav-item nav-link" href="{{ url_for('items') }}"><button class="btn btn-outline-success btn-sm" type="button">ITEMS</button></a>
+    <a class="nav-item nav-link" href="{{ url_for('customers') }}"><button class="btn btn-outline-success btn-sm" type="button">CUSTOMERS</button></a>
+    <a class="nav-item nav-link" href="{{ url_for('add_new_customer') }}"><button class="btn btn-outline-primary btn-sm" type="button">Add new customer</button></a>
+  </div>
+</nav>
+
+<div class="jumbotron">
+  <form method="post">
+    {{form.hidden_tag()}}
+    {{form.firstname.label()}}{{form.firstname()}}
+    {{form.submit()}}
+  </form>
+</div>
+
+{%endblock content%}

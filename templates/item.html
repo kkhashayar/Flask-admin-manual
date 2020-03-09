@@ -1,0 +1,30 @@
+{%extends "customers_items_layout.html"%}
+{%block content%}
+
+
+  <nav class="navbar-fixed-top navbar-expand-lg navbar-light">
+    <div class="navbar-nav navbar-fixed-top">
+      <a class="nav-item nav-link" href="{{ url_for('home') }}"><button class="btn btn-outline-success" type="button">HOME</button></a>
+      <a class="nav-item nav-link" href="{{ url_for('items') }}"><button class="btn btn-outline-success" type="button">ITEMS</button></a>
+      <a class="nav-item nav-link" href="{{ url_for('customers') }}"><button class="btn btn-outline-success" type="button">CUSTOMERS</button></a>
+    </div>
+
+  </nav>
+<div class="jumbotron">
+  <form method="post">
+    {{form.hidden_tag()}}
+    <ul>
+
+      <li class="list-group-item list-group-item-primary">{{form.item_id.label}}</li>{{form.item_id()}}
+      <li>{{form.category.label}}</li>{{form.category()}}
+      <li>{{form.name.label}}</li>{{form.name()}}
+      <li>{{form.model.label}}</li>{{form.model()}}
+      <li>{{form.serial.label}}</li>{{form.serial()}}
+      <li>{{form.quantity.label}}</li>{{form.quantity()}}
+      <li>{{form.price.label}}</li>{{form.price()}}
+      <li>{{form.description.label}}</li>{{form.description()}}<br><br>
+      {{form.delete()}}{{form.update()}}
+    </ul>
+  </form>
+</div>
+{%endblock content%}

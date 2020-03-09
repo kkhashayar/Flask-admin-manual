@@ -1,0 +1,40 @@
+{%extends "customers_items_layout.html"%}
+{%block content%}
+
+
+  <nav class="navbar-fixed-top navbar-expand-lg navbar-light">
+    <div class="navbar-nav navbar-fixed-top">
+      <a class="nav-item nav-link" href="{{ url_for('home') }}"><button class="btn btn-outline-success btn-sm" type="button">HOME</button></a>
+      <a class="nav-item nav-link" href="{{ url_for('items') }}"><button class="btn btn-outline-success btn-sm" type="button">ITEMS</button></a>
+      <a class="nav-item nav-link" href="{{ url_for('add_new_customer') }}"><button class="btn btn-outline-primary btn-sm" type="button">Add new customer</button></a>
+
+      <button class="btn  btn-outline-dark btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Search
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item btn-outline-dark" href="{{url_for('search_by_customer_id')}}"><btton class="btn btn-outline-primary btn-sm" type="button">ID</button></a>
+        <a class="dropdown-item btn-outline-dark" href="{{url_for('search_by_customer_firstname')}}"><btton class="btn btn-outline-primary btn-sm" type="button">First Name</button></a>
+        <a class="dropdown-item btn-outline-dark" href="{{url_for('search_by_customer_lastname')}}"><btton class="btn btn-outline-primary btn-sm" type="button">Last Name</button></a>
+        <a class="dropdown-item btn-outline-dark" href="{{url_for('search_by_customer_address')}}"><btton class="btn btn-outline-primary btn-sm" type="button">Address </button></a>
+
+        <a class="dropdown-item btn-outline-dark" href="{{url_for('search_by_customer_email')}}"><btton class="btn btn-outline-primary btn-sm" type="button">Email</button></a>
+        <a class="dropdown-item btn-outline-dark" href="{{url_for('search_by_customer_phone')}}"><btton class="btn btn-outline-primary btn-sm" type="button">phone</button></a>
+      </div>
+
+
+
+
+
+    </div>
+  </nav>
+<div class="jumbotron">
+  <h4>Customers</h4>
+</div>
+<div style="height:520px;width:520  px;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
+  <strong>{%for customer in all_customers%}</strong>
+  <ul class="list-group">
+    <li class="list-group-item list-group-item-light"> <a href={{customer.customer_id}}> <button class="btn btn-sm btn-outline-secondary" type="button">{{customer}}</button> </a></li>
+  </ul>
+  {%endfor%}
+</div>
+{%endblock content%}

@@ -1,0 +1,8 @@
+<h1>Customer search results</h1>
+
+
+<strong>{%for customer in customers%}</strong>
+<ul class="list-group">
+  <li class="list-group-item list-group-item-light"> <a href={{customer.customer_id}}> <button  class="btn btn-sm btn-outline-secondary" type="button">{{customer}}</button> </a></li>
+</ul>
+{%endfor%}
