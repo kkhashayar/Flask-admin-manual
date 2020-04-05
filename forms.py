@@ -79,13 +79,13 @@ description = db.Column(db.String(255), default="N/A")
 
 class SelectItemForm(FlaskForm):
     item_id = IntegerField("Item ID")
-    category = StringField("Category")
+    #category = StringField("Category")
     name = StringField("Name")
-    model = StringField("Model")
+    #model = StringField("Model")
     serial = StringField("Serial")
     quantity = IntegerField("Quantity")
     price = IntegerField("Price")
-    description = StringField("Description")
+    #description = StringField("Description")
     delete = SubmitField(label="DELETE")
     update = SubmitField(label="UPDATE")
 

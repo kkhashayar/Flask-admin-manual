@@ -8,10 +8,11 @@ from flask_basicauth import BasicAuth
 app = Flask(__name__)
 
 
+
 #-- configurations
 #username = User.query.filet_by(id = i).first()
 app.config["BASIC_AUTH_USERNAME"] = "khashayar"
-app.config["BASIC_AUTH_PASSWORD"] = "123"
+app.config["BASIC_AUTH_PASSWORD"] = "password"
 app.config["BASIC_AUTH_FORCE"] = True
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False

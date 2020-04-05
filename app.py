@@ -213,7 +213,7 @@ description = StringField("Description")
 @app.route("/<item_id>", methods=["POST", "GET"])
 def item(item_id):
     item = get_item(item_id)
-    form = SelectItemForm(item_id=item.item_id, category=item.category, name=item.name, model=item.model, serial=item.serial, quantity=item.quantity, price=item.price, description=item.description)
+    form = SelectItemForm(item_id=item.item_id, name=item.name, serial=item.serial, quantity=item.quantity, price=item.price)
 
     #-- Delete the record
     if form.validate_on_submit():
@@ -227,14 +227,14 @@ def item(item_id):
         #-- everything except Customer ID
         if form.update.data:
             item_id = form.item_id.data
-            category  = form.category.data
+            
             name = form.name.data
-            model = form.model.data
+            
             serial = form.serial.data
             quantity = form.quantity.data
             price = form.price.data
-            description = form.description.data
-            if update_item_record(item_id, category, name, model, serial, quantity, price, description) is True:
+            
+            if update_item_record(item_id, name, serial, quantity, price) is True:
                 return items()
             else:
                 return "<h4>Record doesn't exists</h4>"

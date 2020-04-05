@@ -52,9 +52,10 @@ class Customer(db.Model):
     last_name = db.Column(db.String(40), nullable=False)
     address = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(80,), nullable=False, unique=True)
-    phone = db.Column(db.Integer, nullable=False)
+    phone = db.Column(db.String(30), nullable=False)
     basket = db.Column(db.String(40), nullable=True, default="None")
     buy = db.Column(db.String(40), nullable=True, default="None")
+
 
     #-- For debuging i use __str__
     # def __repr__(self):
@@ -157,19 +158,19 @@ def update_customer_record(customer_id, first_name, last_name, address, email, p
 class Item(db.Model):
     #-- Item table
     item_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    category = db.Column(db.String(40), nullable=False)
-    name = db.Column(db.String(100), unique=True)
-    model = db.Column(db.String(30),nullable=False)
-    serial = db.Column(db.String(30), unique=True, default="N/A")
+    #category = db.Column(db.String(40), nullable=True, default="N/S")
+    name = db.Column(db.String(100), unique=False)
+    #model = db.Column(db.String(30),nullable=False, default="N/A")
+    serial = db.Column(db.String(30), unique=True)
     quantity = db.Column(db.Integer)
     price = db.Column(db.Integer)
-    description = db.Column(db.String(255), default="N/A")
+    #description = db.Column(db.String(255), default="N/A")
 
     #-- For debuging i use __str__
     # def __repr__(self):
     #     return "<Item %r>" % self.item_id, self.category, self.name, self.quantity, self.price, self.description
     def __repr__(self):
-        return "{} - {} - {} - {} - {} - {} - {} - {}".format(self.item_id, self.category, self.name, self.model, self.serial, self.quantity, self.price, self.description)
+        return "{} - {} - {} - {} - {}".format(self.item_id, self.name, self.serial, self.quantity, self.price)
 
 def show_all_items():
     all_items = Item.query.all()
@@ -179,10 +180,10 @@ def get_item(item_id):
     item = Item.query.filter_by(item_id=item_id).first()
     return item
 
-def insert_item_record(category, name, model, serial, quantity, price, description):
+def insert_item_record(name, serial, quantity, price):
         check_item = Item.query.filter_by(serial=serial).first()
         if check_item is None:
-            new_item =  Item(category=category, name=name, model=model, serial=serial, quantity=quantity, price=price, description=description)
+            new_item =  Item(name=name, serial=serial, quantity=quantity, price=price)
             db.session.add(new_item)
             db.session.commit()
             return True
@@ -190,20 +191,19 @@ def insert_item_record(category, name, model, serial, quantity, price, descripti
             return False
 
 #-- Update Item record
-def update_item_record(item_id,category, name, model, serial, quantity, price, description):
+def update_item_record(item_id, name, serial, quantity, price):
     #-- Data check. its only needed in CLI mode. when data populated there is no need for it.
     item = Item.query.filter_by(item_id=item_id).first()
     if item is None:
         return False
     else:
         item.item_id = item_id
-        item.category = category
         item.name = name
-        item.model = model
+
         item.serial = serial
         item.quantity = quantity
         item.price = price
-        item.description = description
+        
         db.session.commit()
         return True
 
@@ -218,17 +218,7 @@ def delete_item_record(item_id):
         return True
 
 #####################################  Item Search functions
-def search_category(category):
-    items = Item.query.filter_by(category=category).all()
-    if len(items) == 0:
-        return "404"
-    return items
 
-def search_model(model):
-    items = Item.query.filter_by(model=model).all()
-    if len(items) == 0:
-        return "404"
-    return items
 
 def search_item_name(item_name):
     items = Item.query.filter_by(name=item_name).all()
