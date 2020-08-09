@@ -1,8 +1,9 @@
 #-- Flak core classes and methods will destribute from here
-from flask import Flask, render_template, url_for, redirect, flash 
+from flask import Flask, render_template, url_for, redirect, flash, request
 #-- for securoty
 from flask_security import Security, SQLAlchemyUserDatastore, UserMixin, RoleMixin, login_required
 from flask_basicauth import BasicAuth
+
 
 
 app = Flask(__name__)
@@ -11,7 +12,7 @@ app = Flask(__name__)
 
 #-- configurations
 #username = User.query.filet_by(id = i).first()
-app.config["BASIC_AUTH_USERNAME"] = "khashayar"
+app.config["BASIC_AUTH_USERNAME"] = "testusername"
 app.config["BASIC_AUTH_PASSWORD"] = "password"
 app.config["BASIC_AUTH_FORCE"] = True
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"

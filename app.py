@@ -1,7 +1,8 @@
 from config import *
 from models import *
 from forms import *
-
+import os
+from flask import request
 
 """
 Home page contains two main pages.
@@ -122,15 +123,32 @@ def add_new_customer():
 
 ######################################  Customer search routes
 
+"""
+    Customer schema 
+
+    customer_id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(40), nullable=False)
+    last_name = db.Column(db.String(40), nullable=False)
+    address = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(80,), nullable=False, unique=True)
+    phone = db.Column(db.String(30), nullable=False)
+    basket = db.Column(db.String(40), nullable=True, default="None")
+    buy = db.Column(db.String(40), nullable=True, default="None")
+    
+"""
 
 
 #-- Returning a single customer by ID
 #-- With Delete and Update functions
 @app.route("/<customer_id>", methods=["POST", "GET"])
 def customer(customer_id):
+    # separating Items and customers 
     if len(customer_id) < 10:
         item_id = customer_id
         return item(item_id)
+
+    #-- Customer crud starts here 
+
     else:
         customer = get_customer(customer_id)
         form = SelectCustomerForm(customer_id=customer.customer_id,
@@ -142,17 +160,34 @@ def customer(customer_id):
                                   basket=customer.basket, 
                                   buy=customer.buy)
 
+        os.system("clear")
+        print(customer_id)
+
+        print("getting data from form")
+        first_name = form.first_name.data 
+        print(first_name)
+        #--- all working up to this point 
+
         #-- Delete the record
-        if form.validate_on_submit():
+        #--if form.validate_on_submit():
+        #-- instead of validate on submit i use request.method == "POST"
+        if request.method == "POST":
+            print("clicked on validate on submit")
             if form.delete.data:
                 if delete_customer_record(customer_id) is True:
                     #-- here should go flash and message
+                    flash("Record deleted")
                     return customers()
                 else:
                     return "<h4>Record doesn't exists</h4>"
+            
+
             #-- Update the record
             #-- everything except Customer ID
-            if form.update.data:
+            
+            elif form.update.data:
+                os.system("clear")
+                print(customer_id)
                 customer_id = form.customer_id.data
                 first_name  = form.first_name.data
                 last_name = form.last_name.data
@@ -161,7 +196,9 @@ def customer(customer_id):
                 phone = form.phone.data
                 basket = form.basket.data
                 buy = form.buy.data
+                
                 if update_customer_record(customer_id, first_name, last_name, address, email, phone, basket, buy) is True:
+                    flash("Record updated")
                     return customers()
                 else:
                     return "<h4>Record doesn't exists</h4>"
@@ -216,10 +253,11 @@ def item(item_id):
     form = SelectItemForm(item_id=item.item_id, name=item.name, serial=item.serial, quantity=item.quantity, price=item.price)
 
     #-- Delete the record
-    if form.validate_on_submit():
+    if request.method == "POST":
         if form.delete.data:
             if delete_item_record(item_id) is True:
                 #-- here should go flash and message
+                flash("Item deleted")
                 return items()
             else:
                 return "<h4>Record doesn't exists</h4>"
@@ -235,6 +273,7 @@ def item(item_id):
             price = form.price.data
             
             if update_item_record(item_id, name, serial, quantity, price) is True:
+                flash("Item updated")
                 return items()
             else:
                 return "<h4>Record doesn't exists</h4>"

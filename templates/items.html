@@ -24,7 +24,13 @@
 
   </nav>
 <div class="jumbotron">
-  <h3>Items</h3>
+  {% for message in get_flashed_messages()%}
+        <p></p>
+        <div class="alert alert-success">
+          <strong>{{message}}</strong>
+        </div>
+  {% endfor %}
+  
 </div>
 <div style="height:520px;width:520  px;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
   <strong>{%for item in all_items%}</strong>

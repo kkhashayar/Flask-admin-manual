@@ -127,6 +127,7 @@ def insert_customer_record(customer_id, first_name, last_name, address, email, p
             return True
         else:
             return False
+
 #-- Delete customer record
 def delete_customer_record(customer_id):
     customer = Customer.query.filter_by(customer_id=customer_id).first()
@@ -136,7 +137,25 @@ def delete_customer_record(customer_id):
         db.session.delete(customer)
         db.session.commit()
         return True
+
 #-- Update customer record
+"""
+def update_customer_record(customer_id, first_name, last_name, address, email, phone, basket, buy):
+    #-- Data check. its only needed in CLI mode. when data populated there is no need for it.
+    customer = Customer.query.filter_by(customer_id=customer_id).first()
+    if customer is None:
+        print("record not found")
+    else:
+        customer.customer_id = customer_id
+        customer.first_name = first_name
+        customer.last_name = last_name
+        customer.address = address
+        customer.email = email
+        customer.phone = phone
+        customer.basket = basket
+        customer.buy = buy
+        db.session.commit()
+"""
 def update_customer_record(customer_id, first_name, last_name, address, email, phone, basket, buy):
     #-- Data check. its only needed in CLI mode. when data populated there is no need for it.
     customer = Customer.query.filter_by(customer_id=customer_id).first()
@@ -151,6 +170,7 @@ def update_customer_record(customer_id, first_name, last_name, address, email, p
         customer.phone = phone
         customer.basket = basket
         customer.buy = buy
+        
         db.session.commit()
         return True
 ############################# Items

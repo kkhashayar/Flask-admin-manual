@@ -28,9 +28,18 @@
     </div>
   </nav>
 <div class="jumbotron">
-  <h4>Customers</h4>
+
+  {% for message in get_flashed_messages()%}
+        <p></p>
+        <div class="alert alert-success">
+          <strong>{{message}}</strong>
+        </div>
+        
+  {% endfor %}
+  
 </div>
 <div style="height:520px;width:520  px;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
+  
   <strong>{%for customer in all_customers%}</strong>
   <ul class="list-group">
     <li class="list-group-item list-group-item-light"> <a href={{customer.customer_id}}> <button class="btn btn-sm btn-outline-secondary" type="button">{{customer}}</button> </a></li>

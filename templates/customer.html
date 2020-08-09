@@ -13,6 +13,7 @@
 <div class="jumbotron">
   <form method="post">
     {{form.hidden_tag()}}
+    {{form.csrf_token}}
     <ul>
       <li>{{form.customer_id.label}}</li>{{form.customer_id()}}
       <li>{{form.first_name.label}}</li>{{form.first_name()}}
@@ -23,6 +24,7 @@
       <li>{{form.basket.label}}</li>{{form.basket()}}
       <li>{{form.buy.label}}</li>{{form.buy()}}<br><br>
       {{form.delete()}} {{form.update()}}
+
     </ul>
   </form>
 </div>

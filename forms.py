@@ -21,9 +21,9 @@ class SelectCustomerForm(FlaskForm):
     customer_id = IntegerField("Customer ID")
     first_name = StringField("First name")
     last_name = StringField("Last name")
-    address = StringField("Ids")
+    address = StringField("Address")
     email = StringField("Email")
-    phone = IntegerField("Phone")
+    phone = StringField("Phone")
     basket = StringField("Basket")
     buy = StringField("Buy")
     delete = SubmitField(label="DELETE")
@@ -36,7 +36,7 @@ class InsertCustomerForm(FlaskForm):
     last_name = StringField("Last name")
     address = StringField("Address")
     email = StringField("Email")
-    phone = IntegerField("Phone")
+    phone = StringField("Phone")
     basket = StringField("Basket")
     buy = StringField("Buy")
     submit = SubmitField("ADD")
@@ -59,7 +59,7 @@ class SearchLastNameForm(FlaskForm):
     submit = SubmitField("Search")
 
 class SearchPhoneForm(FlaskForm):
-    phone = IntegerField("Phone")
+    phone = StringField("Phone")
     submit = SubmitField("Search")
 
 class SearchEmailForm(FlaskForm):

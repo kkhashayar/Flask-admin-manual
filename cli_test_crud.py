@@ -39,6 +39,7 @@ def remove_customer_record(customer_id):
     else:
         db.session.delete(customer)
         db.session.commit()
+        print("Record been removed from database")
 
 
 def update_customer_record(customer_id, first_name, last_name, address, email, phone, basket, buy):
